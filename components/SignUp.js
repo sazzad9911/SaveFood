@@ -52,9 +52,8 @@ const SignUp = (props) => {
             <TextInput style={styles.input} placeholder="E-mail................"
             value={Email} onChangeText={() =>setEmail()}
             mode="flat"/>
-            <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center',borderBottomWidth:1}}>
-            <Text style={{fontSize:15}}>+880</Text>
-            <TextInput style={styles.input1} placeholder="Phone................"
+            <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+            <TextInput style={styles.input} placeholder="Phone................"
             value={Phone} onChangeText={() =>setPhone()}
             mode="flat"/>
             </View>

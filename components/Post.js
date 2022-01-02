@@ -47,7 +47,7 @@ const Post = (props) => {
             bottom: 10,
             width: 140,
             height: 40,
-            backgroundColor:'#280082',
+            backgroundColor:'#F39C12',
             justifyContent: 'center',
             alignItems: 'center'
 
