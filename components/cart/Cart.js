@@ -2,17 +2,18 @@ import React from 'react';
 import { View, Text, Image, StyleSheet,useColorScheme,Dimensions } from 'react-native';
 import DropShadow from "react-native-drop-shadow";
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-const Cart = () => {
-    const [Name, setName] = React.useState('Md. Jamal');
-    const [Address, setAddress] = React.useState('Ashulia Model Town, Ashulia, Saver, Dhaka');
+const Cart = (props) => {
+    const [Name, setName] = React.useState(props.name);
+    const [Address, setAddress] = React.useState(props.address);
     const [date, setDate] = React.useState(new Date(Date.now()));
     const [Month, setMonth] = React.useState("");
+    const [DonateBy, setDonateBy] = React.useState('Sagor Alamat');
 
     const isDarkMode = useColorScheme() === 'dark';
     const window=Dimensions.get('window');
 
     const backgroundStyle = {
-        backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+        backgroundColor: !isDarkMode ? Colors.darker : Colors.lighter,
     };
 
     React.useState(() => {
@@ -32,8 +33,8 @@ const Cart = () => {
     })
     const styles = StyleSheet.create({
         container:{
-            backgroundColor: backgroundStyle,
-            width:window.width-20,
+            backgroundColor: 'rgba(129, 129, 129, 0.295)',
+            width:window.width-25,
             borderRadius:10
         },
         header: {
@@ -64,7 +65,8 @@ const Cart = () => {
             fontSize:15
         },
         image: {
-            width:window.width-20,
+            width:window.width-30,
+            marginLeft:2.5,
             height:window.width/2,
             borderRadius:10
         }
@@ -72,7 +74,7 @@ const Cart = () => {
     })
     return (
         <DropShadow style={{
-            shadowColor: backgroundStyle,
+            shadowColor: '#00000',
             shadowOffset: {
                 width: 1,
                 height: 1
@@ -86,7 +88,7 @@ const Cart = () => {
             <View style={styles.header}>
                 <Image
                     style={styles.profile}
-                    source={{ uri: 'https://picsum.photos/200' }}
+                    source={{ uri: 'https://mobirise.com/bootstrap-template/profile-template/assets/images/timothy-paul-smith-256424-1200x800.jpg' }}
                 />
                 <View style={styles.box1}>
                     <Text style={styles.headText}>{Name}</Text>
@@ -98,20 +100,16 @@ const Cart = () => {
                 </View>
             </View>
             <View>
-                <Image style={styles.image} source={{ uri: 'https://picsum.photos/200'}}/>
+                <Image style={styles.image} source={{ uri: 'https://i.pinimg.com/originals/76/b5/90/76b5906477b699692126dea8ed19d4ac.jpg'}}/>
             </View>
             <View style={styles.header}>
                 <Image
                     style={styles.profile}
-                    source={{ uri: 'https://picsum.photos/200' }}
+                    source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQEZrATmgHOi5ls0YCCQBTkocia_atSw0X-Q&usqp=CAU' }}
                 />
                 <View style={styles.box1}>
-                    <Text style={styles.headText}>{Name}</Text>
-                    <Text style={styles.text}>{Address}</Text>
-                </View>
-                <View style={styles.box2}>
-                    <Text style={styles.text}>{date}</Text>
-                    <Text style={styles.text}>{Month}</Text>
+                    <Text style={styles.headText}>Donate By</Text>
+                    <Text style={styles.text}>{DonateBy}</Text>
                 </View>
             </View>
             </View>
