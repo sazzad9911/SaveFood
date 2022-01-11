@@ -59,6 +59,13 @@ const model=StyleSheet.create({
         position:'absolute',
         bottom:20,
         right:10,
+    },
+    Input:{
+        color:'black',
+        marginLeft:5,
+        fontSize:15,
+        borderColor:'#F39C12',
+        height:40,
     }
 })
 export default model;
