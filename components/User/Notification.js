@@ -1,12 +1,13 @@
 import React from 'react';
-import {View,Text} from 'react-native'
+import {View,Text,ScrollView} from 'react-native'
+import NotificationCart from './../cart/NotificationCart'
 
 
 const Notification = () => {
     return (
-        <View>
-            
-        </View>
+        <ScrollView>
+            <NotificationCart/>
+        </ScrollView>
     );
 };
 

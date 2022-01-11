@@ -1,10 +1,14 @@
 import React from 'react';
-import {View,Text} from 'react-native'
+import {View,Text,ScrollView} from 'react-native'
+import RankCart from '../cart/RankCart';
 const RankList = () => {
     return (
-        <View>
-            
-        </View>
+        <ScrollView>
+            <RankCart/>
+            <RankCart/>
+            <RankCart/>
+            <RankCart/>
+        </ScrollView>
     );
 };
 

@@ -2,9 +2,10 @@ import React from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import IconButton from './../button/IconButton'
 import model from './../Styles/model';
+import VolunteerCart from './../cart/VolunteerCart'
 
-const Volunteer = () => {
-    const [Admin, setAdmin] = React.useState(false)
+const Volunteer = (props) => {
+    const [Admin, setAdmin] = React.useState(true)
     if (!Admin) {
         return (
             <View style={model.view}>
@@ -14,7 +15,9 @@ const Volunteer = () => {
     } else {
         return (
             <ScrollView>
-
+                <VolunteerCart navigation={props.navigation}/>
+                <VolunteerCart navigation={props.navigation}/>
+                <VolunteerCart navigation={props.navigation}/>
             </ScrollView>
         )
     }
