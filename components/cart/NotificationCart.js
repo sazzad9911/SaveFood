@@ -6,7 +6,7 @@ import DropShadow from 'react-native-drop-shadow'
 import model from './../Styles/model';
 
 const NotificationCart = () => {
-    const [Admin, setAdmin] = React.useState(true)
+    const [Admin, setAdmin] = React.useState(false)
     return (
         <DropShadow style={model.shadow}>
             <View style={model.cartView}>

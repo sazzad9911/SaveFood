@@ -72,6 +72,10 @@ const model = StyleSheet.create({
         padding: 5,
         margin: 5,
         borderRadius: 10
+    },
+    loader:{
+        width: 100,
+        height: 100,
     }
 })
 export default model;
