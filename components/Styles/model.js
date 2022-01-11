@@ -4,10 +4,17 @@ const window=Dimensions.get('window');
 
 const model=StyleSheet.create({
     view: {
-        width:window.width-10,
-        height:window.height-10,
+        minWidth:window.width-10,
+        minHeight:window.height-10,
         margin:5,
         backgroundColor:'#FFFF',
+        borderRadius: 20,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    view2: {
+        minWidth:window.width-10,
+        margin:5,
         borderRadius: 20,
         justifyContent: 'center',
         alignItems: 'center'
@@ -39,6 +46,19 @@ const model=StyleSheet.create({
         color:'#DC7633',
         opacity:.8,
         margin:5
+    },
+    profile:{
+        width:130,
+        height:130,
+        borderWidth:1,
+        borderColor:'tomato',
+        borderRadius:65,
+        margin:5
+    },
+    bage:{
+        position:'absolute',
+        bottom:20,
+        right:10,
     }
 })
 export default model;

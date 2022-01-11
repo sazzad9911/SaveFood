@@ -1,6 +1,4 @@
 import React from 'react';
-import { View, Text, useColorScheme, StyleSheet, Dimensions } from 'react-native'
-import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Profile from './User/Profile';
@@ -8,18 +6,12 @@ import Donate from './User/Donate';
 import Contact from './User/Contact'
 import UserHome from './User/UserHome'
 import Volunteer from './User/Volunteer'
+import {TouchableOpacity,StyleSheet} from 'react-native'
 
 
 const Home = (props) => {
     const Tab = createBottomTabNavigator();
-    const [TabColor, setTabColor] = React.useState('#ffff');
-    const isDarkMode = useColorScheme() === 'dark';
 
-    React.useEffect(() => {
-        if (isDarkMode) {
-            setTabColor('#000000')
-        }
-    })
     return (
         <Tab.Navigator screenOptions={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
@@ -45,17 +37,31 @@ const Home = (props) => {
             },
             tabBarActiveTintColor: '#F39C12',
             tabBarInactiveTintColor: 'gray',
-            tabBarStyle: {
-                backgroundColor: TabColor,
-            }
-        })}>
-            <Tab.Screen name="User Home" component={UserHome} options={{ headerShown: false }} />
-            <Tab.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
-            <Tab.Screen name="Donate" component={Donate} options={{ headerShown: false }} />
-            <Tab.Screen name="Volunteer" component={Volunteer} options={{ headerShown: false }} />
-            <Tab.Screen name="Contact" component={Contact} options={{ headerShown: false }} />
+        })} >
+            <Tab.Screen name="User Home" component={UserHome} options={({navigation})=>header({navigation})}/>
+            <Tab.Screen name="Profile" component={Profile} options={({navigation})=>header({navigation})} />
+            <Tab.Screen name="Donate" component={Donate} options={({navigation})=>header({navigation})}/>
+            <Tab.Screen name="Volunteer" component={Volunteer} options={({navigation})=>header({navigation})}/>
+            <Tab.Screen name="Contact" component={Contact} options={({navigation})=>header({navigation})}/>
         </Tab.Navigator>
     );
 };
 
 export default Home;
+const header=({navigation})=>({
+    headerLeft: () => (
+        <TouchableOpacity style={{marginHorizontal:10}} onPress={() =>{
+            navigation.navigate('Rank List')
+        }}>
+            <Ionicons name="ios-trophy" size={30} color="#F39C12" />
+        </TouchableOpacity>
+    ),
+    headerRight: () => (
+        <TouchableOpacity style={{marginHorizontal:10}} onPress={() =>{
+            navigation.navigate('Notification')
+        }}>
+            <Ionicons style={{ marginLeft: 80 }} name="md-notifications" size={30} color="#F39C12" />
+        </TouchableOpacity>
+    ),
+    headerTitleAlign:'center',
+})

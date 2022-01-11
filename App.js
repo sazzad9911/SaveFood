@@ -1,18 +1,9 @@
-
 import React from 'react';
-import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View } from 'react-native';
-import { Colors, DebugInstructions, Header, LearnMoreLinks, ReloadInstructions } from 'react-native/Libraries/NewAppScreen';
-import { NavigationContainer } from '@react-navigation/native';
 import SplashScreen from 'react-native-splash-screen'
-import Cart from './components/cart/Cart';
-import Post from './components/Post'
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import LogIn from './components/LogIn'
-import SignUp from './components/SignUp'
-import Forget from './components/Forget'
-import Home from './components/Home'
 import { Provider as PaperProvider,DefaultTheme } from 'react-native-paper';
 import Main from './Main';
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Warning: Non-serializable values were found in the navigation state. Check:'])
 
 const App = () => {
   
