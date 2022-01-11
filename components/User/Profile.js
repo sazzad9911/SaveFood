@@ -35,7 +35,7 @@ const Profile = () => {
                 <View style={{ marginTop: 20 }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Text style={{ fontWeight: 'bold' }}>Email: </Text>
-                        <TextInput editable={EditEmail} style={[model.Input, { borderBottomWidth: EditEmail ? 1 : 0 }]}
+                        <TextInput editable={EditEmail} style={[model.Input, { borderBottomWidth: EditEmail ? 1:0 }]}
                             value={Email} onChangeText={(val) => setEmail(val)} />
                         <Icon style={{ margin: 5 }} name='account-edit-outline' size={25} color='black' onPress={() => {
                             setEditEmail(!EditEmail)
@@ -43,7 +43,7 @@ const Profile = () => {
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Text style={{ fontWeight: 'bold' }}>Phone: </Text>
-                        <TextInput editable={EditPhone} style={[model.Input, { borderBottomWidth: EditPhone ? 1 : 0 }]}
+                        <TextInput editable={EditPhone} style={[model.Input, { borderBottomWidth: EditPhone ? 1:0 }]}
                             value={Phone} onChangeText={(val) => setPhone(val)} />
                         <Icon style={{ marginLeft: 5 }} name='account-edit-outline' size={25} color='black' onPress={() => {
                             setEditPhone(!EditPhone)
@@ -51,7 +51,7 @@ const Profile = () => {
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Text style={{ fontWeight: 'bold' }}>Address: </Text>
-                        <TextInput editable={EditPhone} style={[model.Input, { borderBottomWidth: EditAddress ? 1 : 0 }]}
+                        <TextInput editable={EditAddress} style={[model.Input, { borderBottomWidth: EditAddress ? 1:0 }]}
                             value={Address} onChangeText={(val) => setAddress(val)} />
                         <Icon style={{ marginLeft: 5 }} name='account-edit-outline' size={25} color='black' onPress={() => {
                             setEditAddress(!EditAddress)
