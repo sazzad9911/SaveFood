@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet,useColorScheme,Dimensions } from 'react-native';
 import DropShadow from "react-native-drop-shadow";
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 const Cart = (props) => {
     const [Name, setName] = React.useState(props.name);
     const [Address, setAddress] = React.useState(props.address);
@@ -9,12 +8,7 @@ const Cart = (props) => {
     const [Month, setMonth] = React.useState("");
     const [DonateBy, setDonateBy] = React.useState('Sagor Alamat');
 
-    const isDarkMode = useColorScheme() === 'dark';
     const window=Dimensions.get('window');
-
-    const backgroundStyle = {
-        backgroundColor: !isDarkMode ? Colors.darker : Colors.lighter,
-    };
 
     React.useState(() => {
         var hours = date.getHours();
@@ -33,9 +27,9 @@ const Cart = (props) => {
     })
     const styles = StyleSheet.create({
         container:{
-            backgroundColor: 'rgba(129, 129, 129, 0.295)',
             width:window.width-25,
-            borderRadius:10
+            backgroundColor:'#FFFF',
+            borderRadius:20
         },
         header: {
             flexDirection: 'row',
@@ -74,15 +68,14 @@ const Cart = (props) => {
     })
     return (
         <DropShadow style={{
-            shadowColor: '#00000',
+            shadowColor: '#000',
             shadowOffset: {
-                width: 1,
-                height: 1
+                width: 2,
+                height: 2
             },
-            shadowRadius: 3,
-            shadowOpacity: 4,
-            borderRadius: 25,
-            margin: 13,
+            shadowOpacity: .4,
+            borderRadius: 5,
+            margin:5
         }}>
             <View style={styles.container}>
             <View style={styles.header}>

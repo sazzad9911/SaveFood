@@ -15,18 +15,7 @@ import { Provider as PaperProvider,DefaultTheme } from 'react-native-paper';
 import Main from './Main';
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-  const [background, setBackground] = React.useState();
-  React.useEffect(() => {
-    if (isDarkMode) {
-      setBackground('#000000');
-
-    }
-  })
+  
   SplashScreen.hide();
   
   const theme = {
@@ -34,11 +23,10 @@ const App = () => {
     roundness: 2,
     colors: {
       ...DefaultTheme.colors,
-      primary: '#F39C12',
-      accent: '#f1c40f',
-      placeholder:'#F39C12',
-      surface: '#F39C12',
-      text: '#F39C12',
+      placeholder:'#DC7633',
+      notification:'#DC7633',
+      text: '#000',
+      primary:'#DC7633',
     },
     mode:'exact'
   };

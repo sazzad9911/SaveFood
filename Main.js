@@ -33,16 +33,9 @@ const Main = () => {
 
         }
     })
-    const MyTheme = {
-        ...DefaultTheme,
-        colors: {
-            ...DefaultTheme.colors,
-            primary: 'rgb(255, 45, 85)',
-            background: background
-        },
-    };
+    
     return (
-        <NavigationContainer theme={MyTheme}>
+        <NavigationContainer>
             <Stack.Navigator>
                 <Stack.Screen name="Post" component={Post} options={{ headerShown: false }} />
                 <Stack.Screen name="LogIn" component={LogIn} options={{ headerShown: false }} />
@@ -65,22 +58,9 @@ const Main = () => {
                     ),
                     title:title,
                     headerTitleAlign:'center',
-                    headerStyle:{
-                        backgroundColor:bg,
-                    },
-                    headerTintColor:tinColor
                 })}/>
-                <Stack.Screen name="Rank List" component={RankList} options={{
-                    headerStyle:{
-                        backgroundColor:bg
-                        },
-                        headerTintColor:tinColor
-                        }}/>
-                <Stack.Screen name="Notification" component={Notification} options={{headerStyle:{
-                    backgroundColor:bg
-                    },
-                    headerTintColor:tinColor
-                    }}/>
+                <Stack.Screen name="Rank List" component={RankList} />
+                <Stack.Screen name="Notification" component={Notification}/>
             </Stack.Navigator>
         </NavigationContainer>
     )
