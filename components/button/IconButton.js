@@ -14,6 +14,7 @@ const IconButton = (props) => {
             justifyContent: 'center',
             alignItems: 'center',
             flexDirection: 'row',
+            paddingHorizontal:15
         },
         props.style
         ]}>

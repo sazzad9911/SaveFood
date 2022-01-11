@@ -35,7 +35,7 @@ const SignUp = (props) => {
                 <TextInput style={model.input} placeholder="Password................"
                     value={Password} onChangeText={() => setPassword()}
                     mode="flat" secureTextEntry />
-                <IconButton label='Next' icon='skip-next'/>
+                <IconButton style={{marginVertical:30}} label='Next' icon='skip-next'/>
             </View>
         </DropShadow>
     );

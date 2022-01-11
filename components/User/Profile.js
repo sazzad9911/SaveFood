@@ -58,6 +58,7 @@ const Profile = () => {
                         }} />
                     </View>
                 </View>
+                <IconButton label='SAVE' icon='content-save'/>
             </View>
         </ScrollView>
     );

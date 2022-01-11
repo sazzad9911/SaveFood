@@ -30,9 +30,8 @@ const model=StyleSheet.create({
     },
     input:{
         width:250,
-        height:40,
+        minHeight:40,
         backgroundColor:'#fff',
-        margin:5
     },
     largeButton: {
         width:250,

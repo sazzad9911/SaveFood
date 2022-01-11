@@ -22,7 +22,7 @@ const LogIn = (props) => {
                     mode="flat" secureTextEntry />
 
                 <IconButton style={{
-                    marginVertical:10,
+                    marginVertical:30,
                 }} label='Next' icon='skip-next' onPress={() =>navigation.navigate('Home')}/>
 
                 <TouchableOpacity onPress={() => {

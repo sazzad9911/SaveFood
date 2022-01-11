@@ -13,7 +13,7 @@ const Forget = () => {
         <TextInput style={model.input} placeholder="Email................"
             value={Email} onChangeText={setEmail}
             mode="flat"/>
-            <IconButton icon='skip-next' label='Send'/>
+            <IconButton style={{marginVertical:30}} icon='skip-next' label='Send'/>
         </View>
     );
 };
