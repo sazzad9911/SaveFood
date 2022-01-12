@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Text, ScrollView, Image, TextInput } from 'react-native'
+import { View, Text, ScrollView, Image, TextInput,TouchableOpacity } from 'react-native'
 import IconButton from './../button/IconButton'
 import model from './../Styles/model';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const Profile = () => {
+const Profile = (props) => {
     const [Name, setName] = React.useState('Anha Akther Shorno')
     const [EditName, setEditName] = React.useState(false)
     const [Email, setEmail] = React.useState('ahana@gmail.com')
@@ -13,13 +13,21 @@ const Profile = () => {
     const [EditPhone, setEditPhone] = React.useState(false)
     const [Address, setAddress] = React.useState('Ashulia, Saver, Dhaka')
     const [EditAddress, setEditAddress] = React.useState(false)
-
+    const params=props.route.params
+    React.useEffect(() => {
+        setName(params.UserInformation.Name)
+        setAddress(params.UserInformation.Address)
+        setEmail(params.UserInformation.Email)
+        setPhone(params.UserInformation.Phone)
+    })
     return (
         <ScrollView>
             <View style={[model.view2]}>
                 <View>
-                    <Image style={model.profile} source={require('./../Files/profile.jpeg')} />
-                    <Icon style={model.bage} name='camera' size={25} color='white' />
+                    <Image style={model.profile} source={{ uri:params.UserInformation.Photo}} />
+                    <TouchableOpacity>
+                    <Icon style={model.bage} name='camera' size={25} color='#F39C12' />
+                    </TouchableOpacity>
                 </View>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <TextInput editable={EditName} style={[model.Input, {

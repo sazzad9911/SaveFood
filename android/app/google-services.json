@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "267594266545",
+    "project_id": "scientistx-savefood",
+    "storage_bucket": "scientistx-savefood.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:267594266545:android:4f801bfc2daaf0e7146f90",
+        "android_client_info": {
+          "package_name": "com.savefood"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "267594266545-ap140mf7k9f90jpg27uk70t02mthh8um.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.savefood",
+            "certificate_hash": "5d4e15cc3efb844624ae9c24fcad94000101320f"
+          }
+        },
+        {
+          "client_id": "267594266545-acnfmkf146gbdge3li73459sc62qb5v7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOZBuSGYGMgB2S09a0iUsXFEPzyQedcJo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "267594266545-acnfmkf146gbdge3li73459sc62qb5v7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

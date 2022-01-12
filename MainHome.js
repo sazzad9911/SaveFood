@@ -1,6 +1,5 @@
 import React from 'react';
 import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View, TouchableOpacity } from 'react-native';
-import { Colors, DebugInstructions, Header, LearnMoreLinks, ReloadInstructions } from 'react-native/Libraries/NewAppScreen';
 import { NavigationContainer, DefaultTheme, useNavigation } from '@react-navigation/native';
 import Cart from './components/cart/Cart';
 import Post from './components/Post'
@@ -14,28 +13,25 @@ import RankList from './components/User/RankList'
 import Notification from './components/User/Notification'
 import { Avatar } from 'react-native-paper'
 
-const Main = (props) => {
+const MainHome = (props) => {
     const Stack = createNativeStackNavigator();
-    const isDarkMode = useColorScheme() === 'dark';
-    const [bg, setBg] = React.useState('#ffff');
-    const [title, setTitle] = React.useState('User Home');
     
     return (
         <NavigationContainer>
             <Stack.Navigator>
+                <Stack.Screen name="Home" component={Home} initialParams={{user:props.user}} options={{ headerShown: false }}/>
                 <Stack.Screen name="Post" component={Post} options={{ headerShown: false }} />
                 <Stack.Screen name="LogIn" component={LogIn} options={{ headerShown: false }} />
                 <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
                 <Stack.Screen name="Forget" component={Forget} options={{ headerShown: false }} />
-                <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-                <Stack.Screen name="Rank List" component={RankList} />
-                <Stack.Screen name="Notification" component={Notification} />
-                <Stack.Screen name="User Profile" component={Profile} />
+                <Stack.Screen name="Rank List" component={RankList}/>
+                <Stack.Screen name="Notification" component={Notification}/>
+                <Stack.Screen name="User Profile" component={Profile}/>
             </Stack.Navigator>
         </NavigationContainer>
     )
 }
-export default Main;
+export default MainHome;
 
 const Profile = (props) => {
     const data = props.route.params;
