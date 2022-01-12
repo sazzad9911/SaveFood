@@ -4,17 +4,25 @@ import { Avatar } from 'react-native-paper'
 import DropShadow from 'react-native-drop-shadow'
 import model from '../Styles/model';
 import SmallButton from '../button/SmallButton';
+import firestore from '@react-native-firebase/firestore'
 const VolunteerCart = (props) => {
     const [visible, setVisible] = React.useState(false)
-    const [data,setData] = React.useState({Name:'Mithila',
-    Phone:'083626334',Email:'Mithila@gmail.com',Address:'Kurigram,Dslsie,ksdd'})
+    const [data,setData] = React.useState(null)
+
+    React.useEffect(() =>{
+        firestore().collection('UserInformation').where("Id","==",props.data.Id).get().then(doc=>{
+            doc.forEach(user=>{
+                setData(user.data())
+            })
+        })
+    })
     return (
         <DropShadow style={model.shadow}>
             <View style={model.cartView}>
                 <TouchableOpacity onPress={() => props.navigation.navigate('User Profile',data)}>
                 <Avatar.Image style={{
                     margin: 5,
-                }} size={60} source={require('./../Files/profile.jpeg')} />
+                }} size={60} source={{ uri: data.Photo}} />
                 </TouchableOpacity>
                 <View style={{
                     justifyContent: 'center',
@@ -22,8 +30,8 @@ const VolunteerCart = (props) => {
                 }}>
                     <Text style={{
                         fontWeight: 'bold'
-                    }}>Mithila</Text>
-                    <Text>Want to send a packet from Address at Time</Text>
+                    }}>{data? data.Name :''}</Text>
+                    <Text>{props.data.Message}</Text>
                     <View style={{ flexDirection: 'row' }}>
                         <SmallButton name='Accept' color='green' onPress={() => { Alert.alert('1', 'ok') }} />
                         <SmallButton name='Reject' color='red' onPress={() => { Alert.alert('1', 'ok') }} />

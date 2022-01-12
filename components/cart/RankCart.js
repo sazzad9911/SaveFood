@@ -9,13 +9,13 @@ const RankCart = (props) => {
             <View style={[model.cartView, { alignItems: 'center' }]}>
                 <Avatar.Image style={{
                     margin: 5,
-                }} size={60} source={require('./../Files/profile.jpeg')} />
+                }} size={60} source={{ uri: props.data.Photo}} />
                 <Text style={{
                     fontSize: 17,
                     fontWeight: 'bold',
                     margin: 5,
                     flex: 3
-                }}>Mithila</Text>
+                }}>{props.data.Name}</Text>
                 <View style={{
                     borderWidth: 1,
                     borderColor: 'black',
@@ -31,7 +31,7 @@ const RankCart = (props) => {
                         fontSize: 22,
                         margin: 1,
                         fontWeight: 'bold',
-                    }}>7</Text>
+                    }}>{props.data.Point}</Text>
                     <Text style={{
                         margin: 1
                     }}>Points</Text>

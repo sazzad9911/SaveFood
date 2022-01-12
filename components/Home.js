@@ -12,10 +12,10 @@ import firestore from '@react-native-firebase/firestore'
 
 const Home = (props) => {
     const Tab = createBottomTabNavigator();
-    const [UserInformation,setUserInformation]= React.useState()
+    const [UserInformation,setUserInformation]= React.useState(null)
     const params=props.route.params
     React.useEffect(()=>{
-        firestore().collection('UserInformation').doc(params.user.uid).onSnapshot(data=>{
+        firestore().collection('UserInformation').doc(params.uid).onSnapshot(data=>{
             setUserInformation(data.data())
         })
     })
@@ -48,19 +48,34 @@ const Home = (props) => {
                 tabBarInactiveTintColor: 'gray',
             })} >
                 <Tab.Screen name="User Home" component={UserHome} initialParams={{
-                    UserInformation:UserInformation
+                    name:UserInformation.Name,email:UserInformation.Email,
+                    phone:UserInformation.Phone,address:UserInformation.Address,
+                    photo:UserInformation.Photo,volunteer:UserInformation.Volunteer,
+                    uid:params.uid
                 }} options={({navigation})=>header({navigation})}/>
                 <Tab.Screen name="Profile" component={Profile} initialParams={{
-                    UserInformation:UserInformation
+                    name:UserInformation.Name,email:UserInformation.Email,
+                    phone:UserInformation.Phone,address:UserInformation.Address,
+                    photo:UserInformation.Photo,volunteer:UserInformation.Volunteer,
+                    uid:params.uid
                 }} options={({navigation})=>header({navigation})} />
                 <Tab.Screen name="Donate" component={Donate} initialParams={{
-                    UserInformation:UserInformation
+                    name:UserInformation.Name,email:UserInformation.Email,
+                    phone:UserInformation.Phone,address:UserInformation.Address,
+                    photo:UserInformation.Photo,volunteer:UserInformation.Volunteer,
+                    uid:params.uid
                 }} options={({navigation})=>header({navigation})}/>
                 <Tab.Screen name="Volunteer" component={Volunteer} initialParams={{
-                    UserInformation:UserInformation
+                    name:UserInformation.Name,email:UserInformation.Email,
+                    phone:UserInformation.Phone,address:UserInformation.Address,
+                    photo:UserInformation.Photo,volunteer:UserInformation.Volunteer,
+                    uid:params.uid
                 }} options={({navigation})=>header({navigation})}/>
                 <Tab.Screen name="Contact" component={Contact} initialParams={{
-                    UserInformation:UserInformation
+                    name:UserInformation.Name,email:UserInformation.Email,
+                    phone:UserInformation.Phone,address:UserInformation.Address,
+                    photo:UserInformation.Photo,volunteer:UserInformation.Volunteer,
+                    uid:params.uid
                 }} options={({navigation})=>header({navigation})}/>
             </Tab.Navigator>
         );

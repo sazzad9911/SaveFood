@@ -27,7 +27,7 @@ const App = () => {
   React.useEffect(()=>{
     auth().onAuthStateChanged((user) => {
       setUser(user);
-      console.log(user);
+      //console.log(user);
       //navigation.navigate('Home', { id: user.id,email: user.email});
   })
   SplashScreen.hide();

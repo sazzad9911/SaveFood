@@ -42,15 +42,15 @@ const Contact = () => {
             <Image style={styles.image} source={Logo} />
             <View style={styles.view2}>
                 <Ionicons style={styles.icon} name="md-call-outline" size={25} />
-                <Text>+8801761143991</Text>
+                <Text>01742824576</Text>
             </View>
             <View style={styles.view2}>
                 <Ionicons style={styles.icon} name="ios-mail-open-outline" size={25} />
-                <Text>mksa.sazzad@gmail.com</Text>
+                <Text>ajijkhaan.project@gmail.com</Text>
             </View>
             <View style={styles.view2}>
                 <Ionicons style={styles.icon} name="ios-location-outline" size={25} />
-                <Text>Ashulia, Saver, Dhaka</Text>
+                <Text>Kazitula Sylhet</Text>
             </View>
         </View>
     );

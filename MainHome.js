@@ -19,7 +19,7 @@ const MainHome = (props) => {
     return (
         <NavigationContainer>
             <Stack.Navigator>
-                <Stack.Screen name="Home" component={Home} initialParams={{user:props.user}} options={{ headerShown: false }}/>
+                <Stack.Screen name="Home" component={Home} initialParams={{email:props.user.email,uid:props.user.uid}} options={{ headerShown: false }}/>
                 <Stack.Screen name="Post" component={Post} options={{ headerShown: false }} />
                 <Stack.Screen name="LogIn" component={LogIn} options={{ headerShown: false }} />
                 <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
