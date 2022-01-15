@@ -1,24 +1,16 @@
 import React from 'react';
-import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View, TouchableOpacity } from 'react-native';
-import { Colors, DebugInstructions, Header, LearnMoreLinks, ReloadInstructions } from 'react-native/Libraries/NewAppScreen';
-import { NavigationContainer, DefaultTheme, useNavigation } from '@react-navigation/native';
-import Cart from './components/cart/Cart';
+import { NavigationContainer} from '@react-navigation/native';
 import Post from './components/Post'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LogIn from './components/LogIn'
 import SignUp from './components/SignUp'
 import Forget from './components/Forget'
 import Home from './components/Home'
-import AnimatedLoader from 'react-native-animated-loader'
 import RankList from './components/User/RankList'
 import Notification from './components/User/Notification'
-import { Avatar } from 'react-native-paper'
 
 const Main = (props) => {
-    const Stack = createNativeStackNavigator();
-    const isDarkMode = useColorScheme() === 'dark';
-    const [bg, setBg] = React.useState('#ffff');
-    const [title, setTitle] = React.useState('User Home');
+    const Stack = createNativeStackNavigator();;
     
     return (
         <NavigationContainer>

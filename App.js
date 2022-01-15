@@ -11,7 +11,7 @@ import SplashScreen from 'react-native-splash-screen'
 import MainHome from './MainHome';
 
 const App = () => {
-  const [User, setUser] = React.useState(false)
+  const [User, setUser] = React.useState(null)
   const theme = {
     ...DefaultTheme,
     roundness: 2,
@@ -24,22 +24,21 @@ const App = () => {
     },
     mode: 'exact'
   };
-  React.useEffect(()=>{
-    auth().onAuthStateChanged((user) => {
-      SplashScreen.hide();
-     return setUser(user);
-      //console.log(user);
-      //navigation.navigate('Home', { id: user.id,email: user.email});
-  })
+  SplashScreen.hide();
+  auth().onAuthStateChanged((user) => {
 
+    setUser(user);
+    //console.log(user);
+    //navigation.navigate('Home', { id: user.id,email: user.email});
   })
+  
   return (
     <PaperProvider theme={theme}>
       {
-        User && User.uid?(
-          <MainHome user={User}/>
-        ):(
-          <Main user={User}/>
+        User && User.uid ? (
+          <MainHome user={User} />
+        ) : (
+          <Main user={User} />
         )
       }
     </PaperProvider>
