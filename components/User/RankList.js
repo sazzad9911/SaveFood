@@ -4,24 +4,30 @@ import RankCart from '../cart/RankCart';
 import firestore from '@react-native-firebase/firestore'
 const RankList = () => {
     const [Users,setUsers]=React.useState(null)
-    React.useState(() => {
-        firestore().collection('UserInformation').get().then(users => {
-            let arr=[];
-            users.forEach(user =>{
-                arr.push(user.data())
+    firestore().collection('UserInformation').onSnapshot(data=>{
+        if(data){
+            let arr = []
+            data.forEach(doc=>{
+                arr.push(doc.data())
             })
             setUsers(arr)
-        })
+        }else{
+            setUsers([])
+        }
     })
     return (
         <ScrollView>
             {
-                Users && Users.length>0? (
-                    Users.map(user =>(
+                Users? (
+                    Users.length > 0 ? (
+                        Users.map(user =>(
                         <RankCart key={user.Id} data={user}/>
                     ))
+                    ):(
+                        <Text style={{margin:10, textAlign: 'center' }}>Empty</Text>
+                    )
                 ):(
-                    <Text style={{margin:10}}>Empty</Text>
+                    <Text style={{margin:10, textAlign: 'center' }}>Loading...</Text>
                 )
             }
         </ScrollView>

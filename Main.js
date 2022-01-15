@@ -30,34 +30,8 @@ const Main = (props) => {
                 <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
                 <Stack.Screen name="Rank List" component={RankList} />
                 <Stack.Screen name="Notification" component={Notification} />
-                <Stack.Screen name="User Profile" component={Profile} />
             </Stack.Navigator>
         </NavigationContainer>
     )
 }
 export default Main;
-
-const Profile = (props) => {
-    const data = props.route.params;
-    return (
-        <View style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-        }}>
-            <Avatar.Image style={{
-                margin: 5,
-            }} size={130} source={require('./components/Files/profile.jpeg')} />
-            <Text style={{
-                fontSize: 20,
-                fontWeight: 'bold',
-                margin: 5,
-                marginBottom: 15
-            }}>{data.Name}</Text>
-            <View>
-                <Text>{data.Phone}</Text>
-                <Text>{data.Email}</Text>
-                <Text>{data.Address}</Text>
-            </View>
-        </View>
-    )
-}

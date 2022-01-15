@@ -25,7 +25,7 @@ const RankCart = (props) => {
                     justifyContent: 'center',
                     alignItems: 'center',
                     padding: 2,
-                    flex: 1
+                    flex: 1 
                 }}>
                     <Text style={{
                         fontSize: 22,

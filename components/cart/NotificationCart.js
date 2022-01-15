@@ -4,22 +4,46 @@ import { Avatar } from 'react-native-paper'
 import SmallButton from './../button/SmallButton'
 import DropShadow from 'react-native-drop-shadow'
 import model from './../Styles/model';
+import firestore from '@react-native-firebase/firestore'
 
-const NotificationCart = () => {
-    const [Admin, setAdmin] = React.useState(false)
+const NotificationCart = (props) => {
+    const [Admin, setAdmin] = React.useState(false);
+    const [data,setData] = React.useState(null);
+    const [Time, setTime]= React.useState(null);
+    const [Date, setDate]= React.useState(null);
+
+    firestore().collection('UserInformation').doc(props.data.Id).onSnapshot(data=>{
+        return setData(data.data());
+    })
+    React.useEffect(() => {
+        if (props.data) {
+            const date = props.data.NewDate.toDate();
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            if (date.getHours() > 12) {
+                const time = date.getHours() - 12 + ':' + date.getMinutes() + ' PM'
+                setTime(time)
+            } else {
+                const time = date.getHours() + ':' + date.getMinutes() + ' AM'
+                setTime(time)
+            }
+
+            setDate(date.getDay() + ' ' + months[date.getMonth()] + ' ' + date.getFullYear())
+
+        }
+    })
     return (
         <DropShadow style={model.shadow}>
             <View style={model.cartView}>
                 <Avatar.Image style={{
                     margin: 5,
-                }} size={60} source={require('./../Files/profile.jpeg')} />
+                }} size={60} source={{ uri: data? data.Photo:'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'}} />
                 <View style={{
                     flex: 3,
                     justifyContent: 'center',
                     padding: 5
                 }}>
-                    <Text style={{ fontWeight: 'bold' }}>Mithila</Text>
-                    <Text>Your donation request is Accept by Mithila</Text>
+                    <Text style={{ fontWeight: 'bold' }}>{data? data.Name:'.'}</Text>
+                    <Text>{props.data.Message}</Text>
                     {
                     Admin ? (
                         <View style={{
@@ -34,8 +58,8 @@ const NotificationCart = () => {
                 }
                 </View>
                 <View style={{ flex: 1, justifyContent: 'center' }}>
-                    <Text>7:33 AM</Text>
-                    <Text>18 Jul 2014</Text>
+                    <Text>{Time}</Text>
+                    <Text>{Date}</Text>
                 </View>
                 
             </View>

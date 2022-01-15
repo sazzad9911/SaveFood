@@ -25,7 +25,7 @@ const MainHome = (props) => {
                 <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
                 <Stack.Screen name="Forget" component={Forget} options={{ headerShown: false }} />
                 <Stack.Screen name="Rank List" component={RankList}/>
-                <Stack.Screen name="Notification" component={Notification}/>
+                <Stack.Screen name="Notification" component={Notification} initialParams={{uid:props.user.uid}}/>
                 <Stack.Screen name="User Profile" component={Profile}/>
             </Stack.Navigator>
         </NavigationContainer>

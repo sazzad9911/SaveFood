@@ -1,14 +1,26 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet,useColorScheme,Dimensions } from 'react-native';
 import DropShadow from "react-native-drop-shadow";
+import firestore from '@react-native-firebase/firestore'
+import Volunteer from './../User/Volunteer';
 const Cart = (props) => {
-    const [Name, setName] = React.useState(props.name);
+    const [Name, setName] = React.useState(props.data.name);
     const [Address, setAddress] = React.useState(props.address);
-    const [date, setDate] = React.useState(new Date(Date.now()));
+    const [date, setDate] = React.useState(props.data.NewDate.toDate());
     const [Month, setMonth] = React.useState("");
     const [DonateBy, setDonateBy] = React.useState('Sagor Alamat');
+    const [data, setData]= React.useState(null)
 
     const window=Dimensions.get('window');
+    React.useEffect(() => {
+        if(props.data){
+            firestore().collection('UserInformation').where("Id", "==", props.data.Volunteer).get().then(doc => {
+                doc.forEach(user => {
+                   return setData(user.data())
+                })
+            })
+        }
+    })
 
     React.useState(() => {
         var hours = date.getHours();
@@ -81,11 +93,11 @@ const Cart = (props) => {
             <View style={styles.header}>
                 <Image
                     style={styles.profile}
-                    source={{ uri: 'https://mobirise.com/bootstrap-template/profile-template/assets/images/timothy-paul-smith-256424-1200x800.jpg' }}
+                    source={{ uri: data? data.Photo:'https://mobirise.com/bootstrap-template/profile-template/assets/images/timothy-paul-smith-256424-1200x800.jpg' }}
                 />
                 <View style={styles.box1}>
-                    <Text style={styles.headText}>{Name}</Text>
-                    <Text style={styles.text}>{Address}</Text>
+                    <Text style={styles.headText}>{data?data.Name:'.........'}</Text>
+                    <Text style={styles.text}>{data?data.Address:'....'}</Text>
                 </View>
                 <View style={styles.box2}>
                     <Text style={styles.text}>{date}</Text>
@@ -93,16 +105,16 @@ const Cart = (props) => {
                 </View>
             </View>
             <View>
-                <Image style={styles.image} source={{ uri: 'https://i.pinimg.com/originals/76/b5/90/76b5906477b699692126dea8ed19d4ac.jpg'}}/>
+                <Image style={styles.image} source={{ uri: props.data.Image}}/>
             </View>
             <View style={styles.header}>
                 <Image
                     style={styles.profile}
-                    source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQEZrATmgHOi5ls0YCCQBTkocia_atSw0X-Q&usqp=CAU' }}
+                    source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSbu_GDWogoTWARzDSPmIjhqmJebhttu11eZeSjyRmTGgKOCj1GfoDF-Dxgch4kwSaGag&usqp=CAU' }}
                 />
                 <View style={styles.box1}>
                     <Text style={styles.headText}>Donate By</Text>
-                    <Text style={styles.text}>{DonateBy}</Text>
+                    <Text style={styles.text}>{props.data.Donar}</Text>
                 </View>
             </View>
             </View>

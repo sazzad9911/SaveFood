@@ -17,23 +17,18 @@ const Post = (props) => {
     const [User, setUser] = React.useState(null);
 
     React.useEffect(() => {
-        
-    const database = firestore().collection('Post').onSnapshot(data => {
-        if (data) {
-            let arr = [];
-            data.forEach = (doc) => {
-                arr.push(doc.data());
+        firestore().collection('Post').orderBy('NewDate','desc').get().then((data) => {
+            if(data){
+                let arr=[]
+                data.forEach((item) => {
+                    arr.push(item.data())
+                })
+               return setData(arr)
+            }else{
+                setData([])
             }
-            setData(arr);
-        } else {
-            setData([]);
-        }
-    },
-        error => {
-            Alert.alert('Error', error.message)
         })
-    return database;
-})
+    })
 const styles = StyleSheet.create({
     view: {
         marginTop: 0,
@@ -62,30 +57,27 @@ const styles = StyleSheet.create({
 return (
     <SafeAreaView style={styles.view}>
         <ScrollView>
-            {
-                data ? (
-                    data.length > 0 ? (
-                        <Cart key={data.PostId} data={data} />
+        {
+                    data ? (
+                        data.length > 0 ? (
+                            data.map(data=>(
+                                <Cart key={data.Id} data={data} />
+                            ))
+                        ) : (
+                            <Text style={{marginTop:100}}>No Data Available</Text>
+                        )
                     ) : (
-                        <View style={{
-                            width: window.width, height: window.height,
-                            justifyContent: 'center', alignItems: 'center'
-                        }}>
-                            <Text>No Data Available</Text>
-                        </View>
+                        <AnimatedLoader
+                            visible={true}
+                            overlayColor="rgba(255, 255, 255, 0.459)"
+                            source={require("./Files/88967-food-delivery-service.json")}
+                            animationStyle={model.loader}
+                            speed={1}
+                        >
+                            <Text style={{ color: "black" }}>Loading...</Text>
+                        </AnimatedLoader>
                     )
-                ) : (
-                    <AnimatedLoader
-                        visible={true}
-                        overlayColor="rgba(255, 255, 255, 0.459)"
-                        source={require("./Files/88967-food-delivery-service.json")}
-                        animationStyle={model.loader}
-                        speed={1}
-                    >
-                        <Text style={{ color: "black" }}>Loading...</Text>
-                    </AnimatedLoader>
-                )
-            }
+                }
         </ScrollView>
         <FAB style={styles.fab} icon={() => (
             <Icon name="login" color='#ffff' size={20} />)} label='Log In' onPress={() => {

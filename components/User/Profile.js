@@ -1,11 +1,12 @@
 import React from 'react';
-import { View, Text, ScrollView, Image, TextInput, TouchableOpacity,Alert } from 'react-native'
+import { View, Text, ScrollView, Image, TextInput, TouchableOpacity, Alert } from 'react-native'
 import IconButton from './../button/IconButton'
 import model from './../Styles/model';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { launchImageLibrary } from 'react-native-image-picker';
 import firestore from '@react-native-firebase/firestore'
 import storage from '@react-native-firebase/storage';
+import auth from '@react-native-firebase/auth'
 
 const Profile = (props) => {
     const params = props.route.params;
@@ -34,14 +35,14 @@ const Profile = (props) => {
                 //const source = { uri: response.uri };
                 setProfile(response.assets[0].uri)
                 const ref = storage().ref('images/' + response.assets[0].fileName);
-                    ref.putFile(response.assets[0].uri).then(() => {
-                        ref.getDownloadURL().then(url => {
-                         firestore().collection('UserInformation').doc(params.uid).update({
-                                Photo: url
-                            })
-
+                ref.putFile(response.assets[0].uri).then(() => {
+                    ref.getDownloadURL().then(url => {
+                        firestore().collection('UserInformation').doc(params.uid).update({
+                            Photo: url
                         })
+
                     })
+                })
             }
         })
     }
@@ -91,22 +92,27 @@ const Profile = (props) => {
                         }} />
                     </View>
                 </View>
-                <IconButton label='SAVE' icon='content-save' onPress={()=> {
-                    if(!Name || !Address || !Phone || !Email){
-                        Alert.alert('Error','Please fill all fields')
+                <IconButton label='SAVE' icon='content-save' onPress={() => {
+                    if (!Name || !Address || !Phone || !Email) {
+                        Alert.alert('Error', 'Please fill all fields')
                         return;
                     }
                     setEditName(false)
                     setEditPhone(false)
                     setEditEmail(false)
                     setEditAddress(false)
-                   firestore().collection('UserInformation').doc(params.uid).update({
+                    firestore().collection('UserInformation').doc(params.uid).update({
                         Name: Name,
                         Email: Email,
                         Phone: Phone,
                         Address: Address,
                     })
-                }}/>
+                }} />
+                <IconButton label="LOG OUT" icon="logout" onPress={() => {
+                    auth()
+                        .signOut()
+                        .then(() => console.log('User signed out!'));
+                }} />
             </View>
         </ScrollView>
     );

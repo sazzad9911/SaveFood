@@ -5,7 +5,7 @@ import Main from './Main';
 import { LogBox, Text } from 'react-native';
 import AnimatedLoader from "react-native-animated-loader";
 import model from './components/Styles/model';
-LogBox.ignoreLogs(['Warning: Non-serializable values were found in the navigation state. Check:'])
+LogBox.ignoreAllLogs()
 import auth from '@react-native-firebase/auth'
 import SplashScreen from 'react-native-splash-screen'
 import MainHome from './MainHome';
@@ -26,17 +26,17 @@ const App = () => {
   };
   React.useEffect(()=>{
     auth().onAuthStateChanged((user) => {
-      setUser(user);
+      SplashScreen.hide();
+     return setUser(user);
       //console.log(user);
       //navigation.navigate('Home', { id: user.id,email: user.email});
   })
-  SplashScreen.hide();
 
   })
   return (
     <PaperProvider theme={theme}>
       {
-        User.uid?(
+        User && User.uid?(
           <MainHome user={User}/>
         ):(
           <Main user={User}/>

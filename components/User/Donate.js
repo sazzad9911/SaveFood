@@ -5,6 +5,7 @@ import model from './../Styles/model';
 import IconButton from './../button/IconButton'
 import AnimatedLoader from 'react-native-animated-loader'
 import firestore from '@react-native-firebase/firestore'
+import uuid from 'react-native-uuid';
 
 const Donate = (props) => {
     const [Address, setAddress] = React.useState()
@@ -31,14 +32,16 @@ const Donate = (props) => {
                     return;
                 }
                 setLoader(true)
-                firestore().collection('Donate').add({
-                    Address: Address,
-                    Time: Time,
-                    Item: Item,
+                const uid =uuid.v4();
+                firestore().collection('Donate').doc(uid).set({
                     NewDate: new Date(),
                     Type: 'donate',
                     Name: params.name,
-                    Id: params.uid
+                    Uid: params.uid,
+                    Read: false,
+                    Message: params.name+' wants send a packet items serially '
+                    +Item+' at '+Time+' from '+Address,
+                    Id:uid
                 }).then(() => {
                     setLoader(false)
                     setSnackbar(true)

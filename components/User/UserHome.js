@@ -8,22 +8,16 @@ import AnimatedLoader from 'react-native-animated-loader'
 const UserHome = (props) => {
     const [data, setData] = React.useState(null);
 
-    React.useEffect(() => {
-        const database = firestore().collection('Post').onSnapshot(data => {
-            if (data) {
-                let arr = [];
-                data.forEach = (doc) => {
-                    arr.push(doc.data());
-                }
-                setData(arr);
-            } else {
-                setData([]);
-            }
-        },
-            error => {
-                Alert.alert('Error', error.message)
+    const post=firestore().collection('Post').orderBy('NewDate','desc').get().then((data) => {
+        if(data){
+            let arr=[]
+            data.forEach((item) => {
+                arr.push(item.data())
             })
-        return database;
+           return setData(arr)
+        }else{
+            setData([])
+        }
     })
 
     return (
@@ -35,7 +29,9 @@ const UserHome = (props) => {
                 {
                     data ? (
                         data.length > 0 ? (
-                            <Cart key={data.PostId} data={data} />
+                            data.map(data=>(
+                                <Cart key={data.Id} data={data} />
+                            ))
                         ) : (
                             <Text style={{marginTop:100}}>No Data Available</Text>
                         )
