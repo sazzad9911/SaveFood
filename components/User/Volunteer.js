@@ -11,6 +11,7 @@ import AnimatedLoader from 'react-native-animated-loader'
 import storage from '@react-native-firebase/storage'
 import uuid from 'react-native-uuid'
 import { TextInput } from 'react-native-paper'
+import app from '@react-native-firebase/app';
 
 const Volunteer = (props) => {
     const params = props.route.params;
@@ -34,11 +35,11 @@ const Volunteer = (props) => {
     })
 
     const SaveImage = (Name) => {
-        if(!Name) {
-            Alert.alert('Error','Add donar name first.')
+        if (!Name) {
+            Alert.alert('Error', 'Add donar name first.')
             return
         }
-        
+
         launchImageLibrary({
             mediaType: 'photo',
             quality: .5
@@ -63,12 +64,12 @@ const Volunteer = (props) => {
                         firestore().collection('Post').doc(id).set({
                             Image: url,
                             Volunteer: params.uid,
-                            Donar:Name,
+                            Donar: Name,
                             NewDate: new Date(),
-                            Id:id
-                        }).then(()=>{
+                            Id: id
+                        }).then(() => {
                             setVisible(false);
-                            Alert.alert('Success','Your post has been successfully submitted')
+                            Alert.alert('Success', 'Your post has been successfully submitted')
                         })
 
                     })
@@ -76,13 +77,83 @@ const Volunteer = (props) => {
             }
         })
     }
-
+    const Reject = (props) => {
+        setVisible(true)
+        //setRead(true);
+        const id = uuid.v4();
+        const ref2 = firestore().collection('Notification').doc(id)
+        const ref3 = firestore().collection('Donate').doc(props.Id);
+        if (props && props.Type) {
+            const batch = firestore().batch();
+            batch.set(ref2, {
+                Uid: props.Uid,
+                Message: 'Your donation request is rejected by ' + params.name,
+                NewDate: date,
+                Id: params.uid
+            })
+            batch.update(ref3, {
+                Read: true,
+            })
+            batch.commit().then(() => {
+                setVisible(false)
+            }).catch(err => {
+                setVisible(false)
+            })
+        }
+    }
+    const Accept = (props) => {
+        setVisible(true)
+        const id = uuid.v4();
+        const increment = app.firestore.FieldValue.increment(1);
+        const ref1 = firestore().collection('UserInformation').doc(props.Uid)
+        const ref2 = firestore().collection('Notification').doc(id)
+        const ref3 = firestore().collection('Donate').doc(props.Id);
+        if (props && props.Type === 'donate') {
+            const batch = firestore().batch();
+            batch.update(ref1, {
+                Point: increment
+            })
+            batch.set(ref2, {
+                Uid: p.Uid,
+                Message: 'Your donation request is accepted by ' + params.name,
+                NewDate:date,
+                Id: params.uid
+            })
+            batch.update(ref3, {
+                Read: true,
+            })
+            batch.commit().then(() => {
+                setVisible(false)
+            }).catch(err => {
+                setVisible(false)
+            })
+        } else if (props && props.Type === 'request') {
+            const batch = firestore().batch();
+            batch.update(ref1, {
+                Volunteer: true,
+            })
+            batch.set(ref2, {
+                Uid: props.Uid,
+                Message: 'Your donation request is rejected by ' + params.name,
+                NewDate: date,
+                Id: params.uid
+            })
+            batch.update(ref3, {
+                Read: true,
+            })
+            batch.commit().then(() =>{
+                setVisible(false)
+            }).catch(err =>{
+                setVisible(false)
+            })
+        }
+    }
     if (!Admin) {
         return (
             <View style={model.view}>
-                <IconButton label="Request for Volunteer" icon='bike-fast' onPress={() => {
-                    const id=uuid.v4();
-                    firestore().collection('Donate').doc(id).set({
+                <IconButton label="Request for Volunteer" icon='bike-fast' onPress={() => async () => {
+                    const id = uuid.v4();
+                    await firestore().collection('Donate').doc(id).set({
                         Uid: params.uid,
                         Message: params.name + ' is requested for volunteering.',
                         Read: false,
@@ -103,7 +174,8 @@ const Volunteer = (props) => {
                         Notifications.length > 0 ? (
                             Notifications.map((doc) => (
                                 <VolunteerCart key={doc.NewDate} navigation={props.navigation} data={doc}
-                                    uid={params.uid} name={params.name} date={date}
+                                    uid={params.uid} name={params.name} date={date} reject={(val)=>Reject(val)} 
+                                    accept={(val)=>Accept(val)}
                                 />
                             ))
                         ) : (
@@ -150,9 +222,11 @@ const AddPost = (props) => {
             }}>
                 <TextInput style={model.input} label='Donar Name' placeholder="Donar Name..."
                     value={Name} onChangeText={(val) => setName(val)} />
-                <TouchableOpacity style={{ flexDirection: 'row' ,margin:10,borderRadius:10,
-                backgroundColor: '#FDEBD0',padding:5,paddingHorizontal:15,justifyContent: 'center'
-                ,alignItems: 'center'}} onPress={() => props.onPress(Name)}>
+                <TouchableOpacity style={{
+                    flexDirection: 'row', margin: 10, borderRadius: 10,
+                    backgroundColor: '#FDEBD0', padding: 5, paddingHorizontal: 15, justifyContent: 'center'
+                    , alignItems: 'center'
+                }} onPress={() => props.onPress(Name)}>
                     <Icon style={{
                         marginHorizontal: 10
                     }} name="camera" size={25} color="#000" />

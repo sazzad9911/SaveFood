@@ -6,7 +6,8 @@ import model from '../Styles/model';
 import SmallButton from '../button/SmallButton';
 import firestore from '@react-native-firebase/firestore'
 import app from '@react-native-firebase/app';
-import uuid from 'react-native-uuid';
+
+
 const VolunteerCart = (props) => {
     const [visible, setVisible] = React.useState(false)
     const [data, setData] = React.useState(null)
@@ -38,27 +39,7 @@ const VolunteerCart = (props) => {
 
         }
     })
-    const Reject = () => {
-        setRead(true);
-        const id = uuid.v4();
-        const increment = app.firestore.FieldValue.increment(1);
-        const ref1 = firestore().collection('UserInformation').doc(props.data.Uid)
-        const ref2 = firestore().collection('Notification').doc(id)
-        const ref3 = firestore().collection('Donate').doc(props.data.Id);
-        if (props.data && props.data.Type) {
-            const batch = firestore().batch();
-            batch.set(ref2, {
-                Uid: props.data.Uid,
-                Message: 'Your donation request is rejected by ' + props.name,
-                NewDate: props.date,
-                Id: props.uid
-            })
-            batch.update(ref3, {
-                Read: true,
-            })
-            batch.commit();
-        }
-    }
+    
     return (
         <DropShadow style={model.shadow}>
             <View style={model.cartView}>
@@ -82,44 +63,12 @@ const VolunteerCart = (props) => {
                             <View style={{ flexDirection: 'row' }}>
                                 <SmallButton name='Accept' color='green' onPress={() => {
                                     setRead(true);
-                                    const id = uuid.v4();
-                                    const increment = app.firestore.FieldValue.increment(1);
-                                    const ref1 = firestore().collection('UserInformation').doc(props.data.Uid)
-                                    const ref2 = firestore().collection('Notification').doc(id)
-                                    const ref3 = firestore().collection('Donate').doc(props.data.Id);
-                                    if (props.data && props.data.Type === 'donate') {
-                                        const batch = firestore().batch();
-                                        batch.update(ref1, {
-                                            Point: increment
-                                        })
-                                        batch.set(ref2, {
-                                            Uid: props.data.Uid,
-                                            Message: 'Your donation request is accepted by ' + props.name,
-                                            NewDate: props.date,
-                                            Id: props.uid
-                                        })
-                                        batch.update(ref3, {
-                                            Read: true,
-                                        })
-                                        batch.commit();
-                                    } else if (props.data && props.data.Type === 'request') {
-                                        const batch = firestore().batch();
-                                        batch.update(ref1, {
-                                            Volunteer: true,
-                                        })
-                                        batch.set(ref2, {
-                                            Uid: props.data.Uid,
-                                            Message: 'Your donation request is rejected by ' + props.name,
-                                            NewDate: props.date,
-                                            Id: props.uid
-                                        })
-                                        batch.update(ref3, {
-                                            Read: true,
-                                        })
-                                        batch.commit();
-                                    }
+                                    props.accept(props.data)
                                 }} />
-                                <SmallButton name='Reject' color='red' onPress={Reject} />
+                                <SmallButton name='Reject' color='red' onPress={()=>{
+                                    setRead(true)
+                                    props.reject(props.data)
+                                }} />
                             </View>
                         )
                     }

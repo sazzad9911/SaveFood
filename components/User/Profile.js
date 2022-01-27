@@ -92,7 +92,7 @@ const Profile = (props) => {
                         }} />
                     </View>
                 </View>
-                <IconButton label='SAVE' icon='content-save' onPress={() => {
+                <IconButton label='SAVE' icon='content-save' onPress={() => async ()=>{
                     if (!Name || !Address || !Phone || !Email) {
                         Alert.alert('Error', 'Please fill all fields')
                         return;
@@ -101,7 +101,7 @@ const Profile = (props) => {
                     setEditPhone(false)
                     setEditEmail(false)
                     setEditAddress(false)
-                    firestore().collection('UserInformation').doc(params.uid).update({
+                   await firestore().collection('UserInformation').doc(params.uid).update({
                         Name: Name,
                         Email: Email,
                         Phone: Phone,

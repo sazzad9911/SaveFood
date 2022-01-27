@@ -33,7 +33,7 @@ const SignUp = (props) => {
             Photo:'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg',
             Id: user.uid
         }).then(() => {
-            props.navigation.navigate('Home')
+            props.navigation.navigate('Home',{email:Email,uid:user.uid})
         }).catch((error) => {
             Alert.alert('Error', error.message)
         })

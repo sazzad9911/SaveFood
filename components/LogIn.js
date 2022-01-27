@@ -36,6 +36,9 @@ const LogIn = (props) => {
                     auth().signInWithEmailAndPassword(Email, Password).then(() => {
                         //Alert.alert('Successful','Sign In Successfully')
                         setLoader(false)
+                        auth().onAuthStateChanged(user => {
+                            navigation.navigate('Home',{email:user.email,uid:user.uid})
+                        })
                     }).catch(err=> {
                         Alert.alert('Error',err.message)
                         setLoader(false)
